@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/navbar/Navbar";
+import Footer from "./components/footer/Footer";
+import Home from "./pages/home/Home";
 
-function App() {
-  const [count, setCount] = useState(0)
+import ListaCategorias from "./components/categorias/ListaCategorias";
+import FormCategoria from "./components/categorias/FormCategoria";
+import DeletarCategoria from "./components/categorias/Deletarcategoria";
 
+import ListaProdutos from "./components/produtos/ListaProdutos";
+import FormProduto from "./components/produtos/FormProduto";
+import DeletarProduto from "./components/produtos/DeletarProduto";
+
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <BrowserRouter>
+      <Navbar />
 
-export default App
+      <main className="min-h-[calc(100vh-160px)] bg-teal-50">
+        <div className="p-6 text-4xl font-bold text-black">TESTE VISÍVEL ✅</div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+
+          <Route path="/categorias" element={<ListaCategorias />} />
+          <Route path="/cadastrarcategoria" element={<FormCategoria />} />
+          <Route path="/editarcategoria/:id" element={<FormCategoria />} />
+          <Route path="/deletarcategoria/:id" element={<DeletarCategoria />} />
+
+          <Route path="/produtos" element={<ListaProdutos />} />
+          <Route path="/cadastrarproduto" element={<FormProduto />} />
+          <Route path="/editarproduto/:id" element={<FormProduto />} />
+          <Route path="/deletarproduto/:id" element={<DeletarProduto />} />
+
+          <Route
+            path="*"
+            element={<div className="p-6 font-bold text-red-600">Rota não encontrada</div>}
+          />
+        </Routes>
+      </main>
+
+      <Footer />
+    </BrowserRouter>
+  );
+}
